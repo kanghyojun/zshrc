@@ -72,27 +72,10 @@ fi
 
 if command -v pyenv >/dev/null; then
     eval "$(pyenv init -)"
-
-    if command -v pyenv-virtualenv >/dev/null; then
-        eval "$(pyenv virtualenv-init -)"
-    fi
-    if command -v pyenv-virtualenvwrapper >/dev/null; then
-        export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
-        pyenv virtualenvwrapper
-    fi
 fi
 
 if command -v nodenv >/dev/null; then
     eval "$(nodenv init -)"
-fi
-
-if [ -f ~/.config/broot/launcher/bash/br ]; then
-    source ~/.config/broot/launcher/bash/br
-fi
-
-# local settings
-if [ -f ~/.zshrc.local ]; then
-    source ~/.zshrc.local
 fi
 
 zmodload -i zsh/complist
@@ -101,3 +84,8 @@ export KEYTIMEOUT=1
 bindkey \^U backward-kill-line
 bindkey "^?" backward-delete-char
 bindkey -M menuselect '^[[Z' reverse-menu-complete
+
+# local settings
+if [ -f ~/.zshrc.local ]; then
+    source ~/.zshrc.local
+fi
