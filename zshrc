@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 [[ -o interactive ]] || return
 
 set -o vi
@@ -12,27 +19,6 @@ PS1="%~
  %> "
 
 zstyle ':completion:*' menu select
-
-# { ================== dvcs info
-setopt prompt_subst
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' actionformats \
-    '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
-zstyle ':vcs_info:*' formats       \
-    '%F{5}[%F{2}%b%F{5}]%f '
-zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
-
-zstyle ':vcs_info:*' enable git cvs svn
-
-# or use pre_cmd, see man zshcontrib
-vcs_info_wrapper() {
-  vcs_info
-  if [ -n "$vcs_info_msg_0_" ]; then
-    echo "%{$fg[grey]%}${vcs_info_msg_0_}%{$reset_color%}$del"
-  fi
-}
-RPROMPT=$'$(vcs_info_wrapper)'
-# ================== dvcs info }
 
 export HISTSIZE=10000
 export SAVEHIST=10000
@@ -62,6 +48,8 @@ if [[ -f ~/.zinit/bin/zinit.zsh ]]; then
         atpull"%atclone" \
         run-atpull \
             zdharma/null
+
+    zinit ice depth=1; zinit light romkatv/powerlevel10k
 fi
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
@@ -89,3 +77,6 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete
 if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
 fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
