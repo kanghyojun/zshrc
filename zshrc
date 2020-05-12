@@ -76,6 +76,7 @@ export KEYTIMEOUT=1
 bindkey \^U backward-kill-line
 bindkey "^?" backward-delete-char
 bindkey -M menuselect '^[[Z' reverse-menu-complete
+bindkey \^y autosuggest-accept
 
 # local settings
 if [ -f ~/.zshrc.local ]; then
