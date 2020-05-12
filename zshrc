@@ -66,6 +66,10 @@ if command -v nodenv >/dev/null; then
     eval "$(nodenv init -)"
 fi
 
+if command -v direnv >/dev/null; then
+    eval "$(direnv hook zsh)"
+fi
+
 zmodload -i zsh/complist
 # keybinding
 export KEYTIMEOUT=1
