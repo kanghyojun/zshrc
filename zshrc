@@ -39,12 +39,17 @@ if [[ -f ~/.zinit/bin/zinit.zsh ]]; then
     zinit ice wait atinit'zpcompinit; zpcdreplay'
     zinit light zsh-users/zsh-syntax-highlighting
 
-    zinit ice wait pick".kubectl_aliases"
-    zinit light ahmetb/kubectl-aliases
     zinit light-mode wait has"helm" for \
         id-as"helm-completion" \
         as"completion" \
         atclone"helm completion zsh > _helm" \
+        atpull"%atclone" \
+        run-atpull \
+            zdharma/null
+    zinit light-mode wait has"kubectl" for \
+        id-as"kubectl-completion" \
+        as"completion" \
+        atclone"kubectl completion zsh > _kubectl" \
         atpull"%atclone" \
         run-atpull \
             zdharma/null
@@ -85,3 +90,4 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+export FZF_DEFAULT_COMMAND="rg -l \"\""
