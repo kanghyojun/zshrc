@@ -89,6 +89,10 @@ if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
 fi
 
+if [ -f ~/.zsh_path ]; then
+    source ~/.zsh_path
+fi
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export FZF_DEFAULT_COMMAND="rg -l \"\""
