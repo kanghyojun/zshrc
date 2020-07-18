@@ -82,6 +82,7 @@ bindkey \^U backward-kill-line
 bindkey "^?" backward-delete-char
 bindkey -M menuselect '^[[Z' reverse-menu-complete
 bindkey \^y autosuggest-accept
+bindkey '^R' history-incremental-search-backward
 
 # local settings
 if [ -f ~/.zshrc.local ]; then
