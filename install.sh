@@ -8,6 +8,7 @@ function symlink {
 symlink "zshrc" "$PWD/zshrc" "$HOME/.zshrc"
 symlink "p10k" "$PWD/p10k.zsh" "$HOME/.p10k.zsh"
 symlink "zshrc_path" "$PWD/zshrc_path" "$HOME/.zshrc_path"
+symlink "zshrc_alias" "$PWD/zshrc_alias" "$HOME/.zshrc_alias"
 
 if [[ ! -f ~/.zinit/bin/zinit.zsh ]]; then
     echo "Installing zinit"

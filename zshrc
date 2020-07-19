@@ -89,8 +89,12 @@ if [ -f ~/.zshrc.local ]; then
     source ~/.zshrc.local
 fi
 
-if [ -f ~/.zsh_path ]; then
-    source ~/.zsh_path
+if [ -f ~/.zshrc_path ]; then
+    source ~/.zshrc_path
+fi
+
+if [ -f ~/.zshrc_alias ]; then
+    source ~/.zshrc_alias
 fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
