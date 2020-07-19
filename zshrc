@@ -61,6 +61,8 @@ autoload -Uz _zinit
 
 if [ -f ~/.fzf.zsh ]; then
     source ~/.fzf.zsh
+    export FZF_DEFAULT_COMMAND="rg -l \"\""
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 
 if command -v pyenv >/dev/null; then
@@ -82,7 +84,6 @@ bindkey \^U backward-kill-line
 bindkey "^?" backward-delete-char
 bindkey -M menuselect '^[[Z' reverse-menu-complete
 bindkey \^y autosuggest-accept
-bindkey '^R' history-incremental-search-backward
 
 # local settings
 if [ -f ~/.zshrc.local ]; then
@@ -99,4 +100,3 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-export FZF_DEFAULT_COMMAND="rg -l \"\""
