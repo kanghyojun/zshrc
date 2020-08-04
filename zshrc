@@ -23,6 +23,7 @@ zstyle ':completion:*' menu select
 export HISTSIZE=10000
 export SAVEHIST=10000
 export HISTFILE=~/.zsh_history
+export GPG_TTY="$TTY"
 
 if [[ -f ~/.zinit/bin/zinit.zsh ]]; then
     source ~/.zinit/bin/zinit.zsh
