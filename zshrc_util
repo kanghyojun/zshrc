@@ -1,0 +1,33 @@
+export SRC_HOME="$HOME/src";
+
+fd() {
+  local dir
+  dir=$(find . -maxdepth 1 -type d 2> /dev/null | fzf +m) && cd "$dir"
+}
+
+pwdc() {
+    pwd | pbcopy
+}
+
+cdp() {
+    cd "$(pbpaste)"
+}
+
+gen_docker_tag() {
+    echo "$(whoami)$(printf '%s%s' $(date +%Y%m%d) $(date +%H%M%S))"
+}
+
+function gs {
+    cd "$(find "$SRC_HOME" -maxdepth 1 -type d | fzf)"
+}
+
+function gsp {
+    cd "$(find "$SRC_HOME" -maxdepth 1 -type d | fzf)";
+    von;
+}
+
+function von {
+    if [[ "$PWD/.venv" ]]; then
+        source .venv/bin/activate
+    fi
+}
