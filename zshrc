@@ -56,6 +56,7 @@ if [[ -f ~/.zinit/bin/zinit.zsh ]]; then
             zdharma/null
 
     zinit ice depth=1; zinit light romkatv/powerlevel10k
+    zinit light simnalamburt/cgitc
 fi
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
