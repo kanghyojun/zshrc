@@ -1,6 +1,11 @@
-alias ls=exa
-alias vim=nvim
-alias vi=nvim
-alias nvi=nvim
+if command -v exa > /dev/null; then
+    alias ls=exa
+fi
+
+if command -v nvim >/dev/null; then
+    alias vim=nvim
+    alias vi=nvim
+    alias nvi=nvim
+fi
 alias g=git
 alias gfg="$HOME/.local/bin/gfg"
