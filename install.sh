@@ -13,5 +13,5 @@ symlink "zshrc_util" "$PWD/zshrc_util" "$HOME/.zshrc_util"
 
 if [[ ! -f ~/.zinit/bin/zinit.zsh ]]; then
     echo "Installing zinit"
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+    sh -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
 fi
