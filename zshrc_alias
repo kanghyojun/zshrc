@@ -2,6 +2,10 @@ if command -v exa > /dev/null; then
     alias ls=exa
 fi
 
+if command -v bat > /dev/null; then
+    alias cat=bat
+fi
+
 if command -v nvim >/dev/null; then
     alias vim=nvim
     alias vi=nvim
@@ -9,3 +13,7 @@ if command -v nvim >/dev/null; then
 fi
 alias g=git
 alias gfg="$HOME/.local/bin/gfg"
+
+if command -v arch >/dev/null; then
+    alias brew_rosetta="arch -x86_64 brew"
+fi
