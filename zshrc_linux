@@ -1,0 +1,113 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+[[ -o interactive ]] || return
+
+set -o vi
+
+if command -v nvim >/dev/null; then
+    export EDITOR=nvim
+else
+    export EDITOR=vim
+fi
+
+# local settings
+if [ -f ~/.zshrc.local ]; then
+    source ~/.zshrc.local
+fi
+
+if [ -f ~/.zshrc_path ]; then
+    source ~/.zshrc_path
+fi
+
+if [ -f ~/.zshrc_alias ]; then
+    source ~/.zshrc_alias
+fi
+
+if [ -f ~/.zshrc_util ]; then
+    source ~/.zshrc_util
+fi
+
+PS1="% ~
+ %> "
+
+zstyle ':completion:*' menu select
+
+export HISTSIZE=10000
+export SAVEHIST=10000
+export HISTFILE=~/.zsh_history
+export GPG_TTY="$TTY"
+
+if [[ -f ~/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    source ~/.local/share/zinit/zinit.git/zinit.zsh
+
+    zinit ice wait as'completion' id-as'git-completion'
+    zinit snippet https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh
+
+    zinit ice wait blockf atpull'zinit creinstall -q .'
+    zinit light zsh-users/zsh-completions
+    zinit ice wait atload'_zsh_autosuggest_start'
+    zinit light zsh-users/zsh-autosuggestions
+    zinit ice wait
+    zinit light zsh-users/zsh-history-substring-search
+    zinit ice wait atinit'zpcompinit; zpcdreplay'
+    zinit light zsh-users/zsh-syntax-highlighting
+
+    zinit ice depth=1; zinit light romkatv/powerlevel10k
+    zinit ice ver:main; zinit light kanghyojun/cgitc
+fi
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+
+if [ -f ~/.fzf.zsh ]; then
+  # Set up fzf key bindings and fuzzy completion
+  source <(fzf --zsh)
+  export FZF_DEFAULT_COMMAND="rg -l \"\""
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
+
+
+if command -v pyenv >/dev/null; then
+    eval "$(pyenv init -)"
+fi
+
+if command -v nodenv >/dev/null; then
+    eval "$(nodenv init -)"
+fi
+
+if command -v direnv >/dev/null; then
+    eval "$(direnv hook zsh)"
+fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+zmodload -i zsh/complist
+# keybinding
+export KEYTIMEOUT=1
+bindkey \^U backward-kill-line
+bindkey "^?" backward-delete-char
+bindkey -M menuselect '^[[Z' reverse-menu-complete
+bindkey \^y autosuggest-accept
+
+
+if [ -f ~/.deno/env ]; then
+    source ~/.deno/env
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
